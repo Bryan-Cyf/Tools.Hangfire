@@ -2,10 +2,12 @@
 using Hangfire.Dashboard;
 using Hangfire.MemoryStorage;
 using Hangfire.PostgreSql;
+using Hangfire.MySql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
+using System.Transactions;
 
 namespace Tools.Hangfire
 {
@@ -54,7 +56,7 @@ namespace Tools.Hangfire
             switch (type)
             {
                 case StorageTypeEnum.PostgreSql:
-                    PostgreSqlStorageOptions hangfireDBOptions = new PostgreSqlStorageOptions
+                    PostgreSqlStorageOptions postgreSqlOptions = new PostgreSqlStorageOptions
                     {
                         //数据库模式名称
                         SchemaName = "public",
@@ -63,7 +65,21 @@ namespace Tools.Hangfire
                         //队列轮询间隔
                         QueuePollInterval = TimeSpan.FromSeconds(options.ScheduleInterval)
                     };
-                    hangfireConfig.UsePostgreSqlStorage(options.Connection, hangfireDBOptions);
+                    hangfireConfig.UsePostgreSqlStorage(options.Connection, postgreSqlOptions);
+                    break;
+                case StorageTypeEnum.MySql:
+                    MySqlStorageOptions mySqlOptions = new MySqlStorageOptions
+                    {
+                        TransactionIsolationLevel = IsolationLevel.ReadCommitted,
+                        QueuePollInterval = TimeSpan.FromSeconds(options.ScheduleInterval),
+                        JobExpirationCheckInterval = TimeSpan.FromHours(1),
+                        CountersAggregateInterval = TimeSpan.FromMinutes(5),
+                        PrepareSchemaIfNecessary = true,
+                        DashboardJobListLimit = 50000,
+                        TransactionTimeout = TimeSpan.FromMinutes(1),
+                        TablesPrefix = "Hangfire"
+                    };
+                    hangfireConfig.UseStorage(new MySqlStorage(options.Connection, mySqlOptions));
                     break;
                 default:
                     hangfireConfig.UseMemoryStorage();

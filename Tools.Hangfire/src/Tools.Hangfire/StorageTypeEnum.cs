@@ -18,5 +18,11 @@ namespace Tools.Hangfire
         /// </summary>
         [Description("PostgreSql")]
         PostgreSql = 1,
+
+        /// <summary>
+        /// MySql
+        /// </summary>
+        [Description("MySql")]
+        MySql = 2,
     }
 }

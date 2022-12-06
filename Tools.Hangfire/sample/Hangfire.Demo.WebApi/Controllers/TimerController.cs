@@ -52,10 +52,10 @@ namespace Hangfire.Demo.WebApi.Controllers
         public override string Cron => Hangfire.Cron.Minutely();
 
         /// <summary>
-        /// 指定执行队列 默认defualt
+        /// 指定执行队列 默认default
         /// </summary>
         /// <returns></returns>
-        [Queue("schdule")]
+        [Queue("default")]
         public override Task ExcuteAsync()
         {
             Console.WriteLine("Transparent!");
