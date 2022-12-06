@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<RootNamespace>Tools.Hangfire</RootNamespace>
-		<Version>1.0.2</Version>
+		<Version>1.0.3</Version>
 		<Authors>Bryan</Authors>
 		<Description>hangfire扩展封装</Description>
 		<PackageTags>hangfire</PackageTags>
