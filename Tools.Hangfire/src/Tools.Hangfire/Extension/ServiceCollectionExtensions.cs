@@ -25,7 +25,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 configure?.Invoke(x);
             });
 
-            var options = configuration.GetSection(HangfireOptions.SectionName).Get<HangfireOptions>();
+            var options = configuration.GetSection(HangfireOptions.SectionName).Get<HangfireOptions>() ?? new HangfireOptions();
+            configure?.Invoke(options);
 
             if (options.IsOpenServer)
             {
@@ -40,9 +41,9 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddHangfireServer(x =>
                 {
                     x.ServerName = options.ServerName ?? HangfireOptions.DefaultUserName;
-                    x.WorkerCount = options.WorkCount;
+                    x.WorkerCount = options.WorkCount > 0 ? options.WorkCount : Math.Min(Environment.ProcessorCount * 5, 20);
                     x.SchedulePollingInterval = TimeSpan.FromSeconds(options.ScheduleInterval);
-                    x.Queues = options.Queues;
+                    x.Queues = options.Queues ?? new string[] { "default" };
                 });
 
                 services.AddSingleton<IStartupFilter, HangfireServerStartupFilter>();
