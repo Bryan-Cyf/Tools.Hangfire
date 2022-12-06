@@ -7,10 +7,16 @@ namespace Tools.Hangfire
 {
     public enum StorageTypeEnum
     {
+        /// <summary>
+        /// 内存
+        /// </summary>
         [Description("内存")]
         Memory = 0,
 
-        [Description("PGSQL")]
+        /// <summary>
+        /// PostgreSql
+        /// </summary>
+        [Description("PostgreSql")]
         PostgreSql = 1,
     }
 }

@@ -2,10 +2,11 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<RootNamespace>Tools.Hangfire</RootNamespace>
-		<Version>1.0.2</Version>
+		<Version>1.0.1</Version>
 		<Authors>Bryan</Authors>
-		<Description>[工具集]hangfire封装</Description>
+		<Description>hangfire扩展封装</Description>
 		<PackageTags>hangfire</PackageTags>
+		<PackageProjectUrl>https://github.com/Bryan-Cyf/Tools.Hangfire</PackageProjectUrl>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
 	<ItemGroup>
