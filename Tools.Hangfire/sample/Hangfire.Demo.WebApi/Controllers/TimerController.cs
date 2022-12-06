@@ -55,7 +55,7 @@ namespace Hangfire.Demo.WebApi.Controllers
         /// 指定执行队列 默认default
         /// </summary>
         /// <returns></returns>
-        [Queue("default")]
+        [Queue("schedule")]
         public override Task ExcuteAsync()
         {
             Console.WriteLine("Transparent!");
