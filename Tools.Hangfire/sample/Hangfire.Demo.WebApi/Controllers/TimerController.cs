@@ -49,7 +49,10 @@ namespace Hangfire.Demo.WebApi.Controllers
     {
         public override string Name => "Order";
 
-        public override string Cron => Hangfire.Cron.Minutely();
+        /// <summary>
+        /// Cron表达式
+        /// </summary>
+        public override string Cron => Hangfire.Cron.Daily(1);
 
         /// <summary>
         /// 指定执行队列 默认default
